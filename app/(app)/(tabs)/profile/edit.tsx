@@ -6,7 +6,7 @@ import {
 import { Image } from "expo-image";
 import * as ImagePicker from "expo-image-picker";
 import { Ionicons } from "@expo/vector-icons";
-import { supabase } from "@/lib/supabase"; // ← tu cliente inicializado
+import { supabase } from "@/app/src/lib/supabase"; // ← tu cliente inicializado
 
 type Profile = {
   id: string;

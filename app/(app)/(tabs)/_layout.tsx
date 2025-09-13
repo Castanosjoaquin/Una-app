@@ -3,8 +3,8 @@ import FontAwesome from '@expo/vector-icons/FontAwesome';
 import React from 'react';
 
 // Define colores activos/inactivos para la barra
-const ACTIVE_COLOR = '#000';    // color activo
-const INACTIVE_COLOR = '#888';  // color inactivo
+const ACTIVE_COLOR = '#8a3669ff';    // color activo
+const INACTIVE_COLOR = '#be4d99ff';  // color inactivo
 
 export default function TabLayout() {
   return (
@@ -13,7 +13,8 @@ export default function TabLayout() {
         headerShown: false,
         tabBarActiveTintColor: ACTIVE_COLOR,
         tabBarInactiveTintColor: INACTIVE_COLOR,
-        tabBarStyle: { paddingBottom: 4, height: 60 },
+        tabBarStyle: { paddingBottom: 4, height: 60, backgroundColor: '#D6C2A9' },
+    
       }}
     >
       <Tabs.Screen
@@ -31,6 +32,15 @@ export default function TabLayout() {
           title: 'Mapa',
           tabBarIcon: ({ color, size }) => (
             <FontAwesome name="map-marker" size={size} color={color} />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="chat"
+        options={{
+          title: 'Chat',
+          tabBarIcon: ({ color, size }) => (
+            <FontAwesome name="comments" size={size} color={color} />
           ),
         }}
       />

@@ -1,5 +1,5 @@
 import { Ionicons } from '@expo/vector-icons';
-import { supabase } from '../../lib/supabase'
+import { supabase } from '../src/lib/supabase'
 import React, { useState } from 'react';
 import {Link} from 'expo-router'
 import GoogleSignIn from '../components/GoogleSignIn';

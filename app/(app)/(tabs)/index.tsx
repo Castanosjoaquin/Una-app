@@ -20,7 +20,7 @@ export default function IndexScreen() {
   );
   
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
       <ScrollView ref={scrollRef} contentContainerStyle={styles.scroll}>
         {/* Header */}
 
@@ -73,12 +73,12 @@ export default function IndexScreen() {
 
 
       </ScrollView>
-    </SafeAreaView>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: "#fff" },
+  container: { flex: 1, backgroundColor: "#0B0136" },
   scroll: { padding: 16, paddingBottom: 40 },
   headerRow: {
     flexDirection: "row",

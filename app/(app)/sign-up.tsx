@@ -1,8 +1,8 @@
 import React, {useState} from 'react'
-import { Alert, Platform, Text, TextInput, TouchableOpacity, View,SafeAreaView, KeyboardAvoidingView } from 'react-native'
+import { Alert, Platform, Text, TextInput, TouchableOpacity, View, KeyboardAvoidingView } from 'react-native'
 import { Link, useRouter } from 'expo-router'
 import { Ionicons } from '@expo/vector-icons';
-import { supabase } from '../../lib/supabase'
+import { supabase } from '@/app/src/lib/supabase'
 
 export default function SignUpScreen() {
   const [email, setEmail] = useState('')
@@ -26,7 +26,7 @@ export default function SignUpScreen() {
     }
 
   return (
-    <SafeAreaView style ={{flex: 1}}>
+    <View style ={{flex: 1}}>
       <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         style={{ flex: 1 }}
@@ -206,7 +206,7 @@ export default function SignUpScreen() {
           </View>
         </View>
       </KeyboardAvoidingView>
-    </SafeAreaView> 
+    </View> 
   
   )
 }

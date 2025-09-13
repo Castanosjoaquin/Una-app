@@ -1,8 +1,9 @@
 import { Slot } from "expo-router";
-import React,{ useEffect } from "react";
-import { AppState } from "react-native";
-import { supabase } from '../lib/supabase'
+import React,{ useEffect  } from "react";
+import { AppState,View } from "react-native";
+import { supabase } from './src/lib/supabase'
 import "react-native-url-polyfill/auto";
+import { ThemeProvider } from "../theme/provider";
 
 // Si alguna lib lo necesita: import 'react-native-get-random-values';
 
@@ -21,5 +22,6 @@ export default function RootLayout() {
     };
   }, []);
 
-  return <Slot />;
+  return <View style={{ flex: 1, backgroundColor: '#EFE6DA' }}><Slot/></View>;
 }
+  

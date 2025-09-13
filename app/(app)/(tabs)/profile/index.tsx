@@ -7,7 +7,7 @@ import { useState, useMemo } from 'react';
 import { useRouter } from 'expo-router';
 import ProfileImageModal from '@/app/components/ProfileImageModal';
 import AvatarInteractive from '@/app/components/AvatarInteractive';
-import { supabase } from '@/lib/supabase';
+import { supabase } from '@/app/src/lib/supabase';
 
 
 export default function ProfilePage() {
@@ -78,7 +78,7 @@ export default function ProfilePage() {
  
   return (
 
-    <SafeAreaView style={styles.safe}>
+    <View style={styles.safe}>
       <View style={styles.card}>
         {/* Header: avatar + username */}
         <View style={styles.header}>
@@ -163,7 +163,7 @@ export default function ProfilePage() {
           </View>
         </TouchableOpacity>
       </View>
-  </SafeAreaView>
+  </View>
 
   );
 }
@@ -192,7 +192,7 @@ const styles = StyleSheet.create({
     marginLeft: 8,              // ml-2
   },
 
-  safe: { flex: 1, backgroundColor: "#FFF7ED", padding: 16 }, // igual que edit
+  safe: { flex: 1, backgroundColor: "#0B0136", padding: 16 }, // igual que edit
   card: {
     backgroundColor: "#fff",
     borderRadius: 16,
@@ -202,6 +202,7 @@ const styles = StyleSheet.create({
     shadowRadius: 12,
     elevation: 3,
   },
+  
   header: { flexDirection: "row", alignItems: "center", marginBottom: 16 },
   avatar: { width: 56, height: 56, borderRadius: 28, marginRight: 12, backgroundColor: "#eee" },
   username: { fontSize: 18, fontWeight: "700", color: "#6D28D9" },
@@ -210,10 +211,13 @@ const styles = StyleSheet.create({
     width: 36, height: 36, borderRadius: 18, alignItems: "center", justifyContent: "center",
     backgroundColor: "#E9D5FF", marginRight: 8,
   },
+
   editBtn: {
     paddingHorizontal: 12, height: 36, borderRadius: 18,
     alignItems: "center", justifyContent: "center", backgroundColor: "#6D28D9",
   },
+
+
   editTxt: { color: "#fff", fontWeight: "700" },
   body: { marginTop: 16 },
   sectionTitle: { fontWeight: "800", fontSize: 16, color: "#111827", marginBottom: 6 },

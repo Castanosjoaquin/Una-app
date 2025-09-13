@@ -4,7 +4,9 @@
       "strict": true,
       "jsx": "react",
       "paths": {
-        "@/*": ["./*"]
+        "@/*": ["./*"],
+        "@/theme/*": ["/theme/*"],
+        "@/components/*": ["/app/components/*"]
       }
   }
 }
