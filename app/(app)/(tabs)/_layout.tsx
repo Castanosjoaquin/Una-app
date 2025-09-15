@@ -3,8 +3,8 @@ import FontAwesome from '@expo/vector-icons/FontAwesome';
 import React from 'react';
 
 // Define colores activos/inactivos para la barra
-const ACTIVE_COLOR = '#8a3669ff';    // color activo
-const INACTIVE_COLOR = '#be4d99ff';  // color inactivo
+const ACTIVE_COLOR = '#ad70fdff';    // color activo
+const INACTIVE_COLOR = '#5A5DF0';  // color inactivo
 
 export default function TabLayout() {
   return (
@@ -13,7 +13,7 @@ export default function TabLayout() {
         headerShown: false,
         tabBarActiveTintColor: ACTIVE_COLOR,
         tabBarInactiveTintColor: INACTIVE_COLOR,
-        tabBarStyle: { paddingBottom: 4, height: 60, backgroundColor: '#D6C2A9' },
+        tabBarStyle: { paddingBottom: 4, height: 60, backgroundColor: '#FFFFFF' },
     
       }}
     >

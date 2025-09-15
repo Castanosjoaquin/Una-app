@@ -40,3 +40,4 @@ export const MOCK_EVENTS: EventItem[] = [
     tags: ["Friends"],
   },
 ];
+export default MOCK_EVENTS;

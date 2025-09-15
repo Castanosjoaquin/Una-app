@@ -40,3 +40,4 @@ export const MOCK_USERS: StoryUser[] = [
     hasUnseen: false,
   },
 ];
+export default MOCK_USERS;

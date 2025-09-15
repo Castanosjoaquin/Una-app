@@ -1,13 +1,15 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { ActivityIndicator, FlatList, Pressable, Text, TextInput, View } from 'react-native';
 import { Link, router } from 'expo-router';
-import { supabase } from '@/app/src/lib/supabase'
+import { supabase } from '@/app/src/lib/supabase';
 import { createConversationWithUsers } from '@/app/src/chat/actions';
 import { Ionicons } from '@expo/vector-icons';
+import { useTheme } from '@/app/../theme/theme';
 
 type Conv = { id: string; title: string | null; is_group: boolean; created_at: string };
 
 export default function Conversations() {
+  const { colors, space, radii } = useTheme();
   const [loading, setLoading] = useState(true);
   const [convs, setConvs] = useState<Conv[]>([]);
   const [query, setQuery] = useState('');
@@ -37,38 +39,38 @@ export default function Conversations() {
   }, [query, convs]);
 
   return (
-    <View style={{ flex: 1, backgroundColor: '#EFE6DA' }}>
+    <View style={{ flex: 1, backgroundColor: colors.background }}>
       {/* Top bar */}
-      <View style={{ paddingHorizontal: 16, paddingVertical: 12, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+      <View style={{ paddingHorizontal: space[4], paddingVertical: space[3], flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
         <Link href="/(tabs)/home" asChild>
-          <Pressable style={{ flexDirection: 'row', alignItems: 'center', gap: 6 }}>
-            <Ionicons name="chevron-back" size={18} color="#6C2BD9" />
-            <Text style={{ color: '#6C2BD9', fontWeight: '700' }}>Back to Home</Text>
+          <Pressable style={{ flexDirection: 'row', alignItems: 'center', gap: space[1] }}>
+            <Ionicons name="chevron-back" size={18} color={colors.primary.DEFAULT} />
+            <Text style={{ color: colors.primary.DEFAULT, fontWeight: '700' }}>Back to Home</Text>
           </Pressable>
         </Link>
 
         <Pressable
           onPress={() => router.push('/chat/new')}
-          style={{ borderColor: '#FB923C', borderWidth: 1, paddingVertical: 6, paddingHorizontal: 12, borderRadius: 12, flexDirection: 'row', alignItems: 'center', gap: 6 }}
+          style={{ borderColor: colors.coral.DEFAULT, borderWidth: 1, paddingVertical: space[1], paddingHorizontal: space[3], borderRadius: radii.lg, flexDirection: 'row', alignItems: 'center', gap: space[1] }}
         >
-          <Ionicons name="people-outline" size={16} color="#FB923C" />
-          <Text style={{ color: '#FB923C', fontWeight: '700' }}>New Chat</Text>
+          <Ionicons name="people-outline" size={16} color={colors.coral.DEFAULT} />
+          <Text style={{ color: colors.coral.DEFAULT, fontWeight: '700' }}>New Chat</Text>
         </Pressable>
       </View>
 
       {/* Search bar */}
-      <View style={{ paddingHorizontal: 16, marginBottom: 8 }}>
+      <View style={{ paddingHorizontal: space[4], marginBottom: space[1] }}>
         <View style={{
-          backgroundColor: '#FFF', borderRadius: 12, borderWidth: 1, borderColor: '#EEE7DB',
-          paddingHorizontal: 12, paddingVertical: 10, flexDirection: 'row', alignItems: 'center', gap: 8
+          backgroundColor: colors.input, borderRadius: radii.lg, borderWidth: 1, borderColor: colors.border,
+          paddingHorizontal: space[3], paddingVertical: space[2], flexDirection: 'row', alignItems: 'center', gap: space[2]
         }}>
-          <Ionicons name="search" size={16} color="#6B7280" />
+          <Ionicons name="search" size={16} color={colors.accent[500] || colors.primary[500]} />
           <TextInput
             placeholder="Search conversations…"
-            placeholderTextColor="#9CA3AF"
+            placeholderTextColor={colors.accent[400] || colors.primary[400]}
             value={query}
             onChangeText={setQuery}
-            style={{ flex: 1, color: '#111827' }}
+            style={{ flex: 1, color: colors.foreground }}
           />
         </View>
       </View>
@@ -76,7 +78,7 @@ export default function Conversations() {
       {/* List / Empty */}
       {loading ? (
         <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-          <ActivityIndicator color="#6C2BD9" />
+          <ActivityIndicator color={colors.primary.DEFAULT} />
         </View>
       ) : filtered.length === 0 ? (
         <EmptyState />
@@ -84,17 +86,17 @@ export default function Conversations() {
         <FlatList
           data={filtered}
           keyExtractor={(i) => i.id}
-          contentContainerStyle={{ padding: 16, gap: 10 }}
+          contentContainerStyle={{ padding: space[4], gap: space[2] }}
           renderItem={({ item }) => (
             <Pressable
               onPress={() => router.push(`/chat/${item.id}`)}
               style={{
-                backgroundColor: '#fff', borderRadius: 16, borderWidth: 1, borderColor: '#EEE7DB',
-                padding: 16, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'
+                backgroundColor: colors.card.DEFAULT, borderRadius: radii.lg, borderWidth: 1, borderColor: colors.border,
+                padding: space[4], flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'
               }}
             >
-              <Text style={{ color: '#1F2937', fontWeight: '700' }}>{item.title ?? 'Direct message'}</Text>
-              <Ionicons name="chevron-forward" size={18} color="#9CA3AF" />
+              <Text style={{ color: colors.foreground, fontWeight: '700' }}>{item.title ?? 'Direct message'}</Text>
+              <Ionicons name="chevron-forward" size={18} color={colors.accent[400] || colors.primary[400]} />
             </Pressable>
           )}
         />
@@ -104,11 +106,12 @@ export default function Conversations() {
 }
 
 function EmptyState() {
+  const { colors, space } = useTheme();
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Ionicons name="chatbubble-ellipses-outline" size={42} color="#8B6AD9" />
-      <Text style={{ marginTop: 10, fontWeight: '800', color: '#6C2BD9' }}>No conversations yet</Text>
-      <Text style={{ marginTop: 4, color: '#6B7280' }}>Start a new chat by selecting a user!</Text>
+      <Ionicons name="chatbubble-ellipses-outline" size={42} color={colors.primary[400]} />
+      <Text style={{ marginTop: space[2], fontWeight: '800', color: colors.primary.DEFAULT }}>No conversations yet</Text>
+      <Text style={{ marginTop: space[1], color: colors.accent[500] || colors.primary[500] }}>Start a new chat by selecting a user!</Text>
     </View>
   );
 }

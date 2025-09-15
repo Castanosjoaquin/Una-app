@@ -18,3 +18,5 @@ export function useAuth() {
 
   return { ready, logged };
 }
+
+export default useAuth;

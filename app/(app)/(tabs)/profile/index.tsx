@@ -1,5 +1,6 @@
 import {Alert, SafeAreaView,View, Text, TouchableOpacity,StyleSheet,Pressable  } from 'react-native';
 import React from 'react';
+import { useTheme } from '@/app/../theme/theme';
 import { Ionicons } from '@expo/vector-icons'; 
 import EventsSection from '@/app/components/EventsSection';
 import { MOCK_EVENTS } from '@/app/components/MockEvents';
@@ -9,9 +10,9 @@ import ProfileImageModal from '@/app/components/ProfileImageModal';
 import AvatarInteractive from '@/app/components/AvatarInteractive';
 import { supabase } from '@/app/src/lib/supabase';
 
-
 export default function ProfilePage() {
   const router = useRouter();
+  const { colors, radii, space, typography } = useTheme();
   const [filter, setFilter] = useState<string>("All");
   const [modalVisible, setModalVisible] = useState(false);
 
@@ -70,18 +71,26 @@ export default function ProfilePage() {
 
   if (loading) {
     return (
-      <View style={[styles.safe, { alignItems: "center", justifyContent: "center" }]}> 
-        <Text>Cargando perfil...</Text>
+      <View style={[{ flex: 1, backgroundColor: colors.background, padding: space[4], alignItems: "center", justifyContent: "center" }]}> 
+        <Text style={{ color: colors.foreground }}>Cargando perfil...</Text>
       </View>
     );
   }
  
   return (
 
-    <View style={styles.safe}>
-      <View style={styles.card}>
+    <View style={{ flex: 1, backgroundColor: colors.background, padding: space[4] }}>
+      <View style={{
+        backgroundColor: colors.card.DEFAULT,
+        borderRadius: radii.lg,
+        padding: space[4],
+        shadowColor: '#000',
+        shadowOpacity: 0.08,
+        shadowRadius: 12,
+        elevation: 3,
+      }}>
         {/* Header: avatar + username */}
-        <View style={styles.header}>
+  <View style={{ flexDirection: "row", alignItems: "center", marginBottom: space[4] }}>
           <AvatarInteractive
             imageUrl={profileImageUrl}
             size={72}
@@ -102,40 +111,46 @@ export default function ProfilePage() {
           imageSize={300}
           blurAmount={60}
         />
-          <View style={{ flex: 1, marginLeft: 10 }}>
-            <Text style={styles.username}>{username}</Text>
-            <View style={{ height: 8 }} />
+          <View style={{ flex: 1, marginLeft: space[3] }}>
+            <Text style={{ fontSize: typography.sizes.title, fontWeight: "700", color: colors.primary.DEFAULT }}>{username}</Text>
+            <View style={{ height: space[2] }} />
             <View style={{ flexDirection: "row", alignItems: "center" }}>
-                <Ionicons name="location-outline" size={16} color="#A78BFA" style={{ marginRight: 4 }} />
-                <Text style={styles.sub}>{location}</Text>
+                <Ionicons name="location-outline" size={16} color={colors.primary[300]} style={{ marginRight: 4 }} />
+                <Text style={{ color: colors.primary[300], marginTop: 2 }}>{location}</Text>
             </View>
           </View>
 
           {/* Botón ruedita → settings */}
-          <Pressable style={styles.iconBtn} onPress={() => router.push("../profile/settings")}>
-            <Ionicons name="settings-outline" size={20} />
+          <Pressable style={{
+            width: 36, height: 36, borderRadius: 18, alignItems: "center", justifyContent: "center",
+            backgroundColor: colors.primary[100], marginRight: 8,
+          }} onPress={() => router.push("../profile/settings")}> 
+            <Ionicons name="settings-outline" size={20} color={colors.primary.DEFAULT} />
           </Pressable>
 
           {/* Botón Edit → edit profile */}
-          <Pressable style={styles.editBtn} onPress={() => router.push("../profile/edit")}>
-            <Text style={styles.editTxt}>Edit</Text>
+          <Pressable style={{
+            paddingHorizontal: 12, height: 36, borderRadius: 18,
+            alignItems: "center", justifyContent: "center", backgroundColor: colors.primary.DEFAULT,
+          }} onPress={() => router.push("../profile/edit")}> 
+            <Text style={{ color: "#fff", fontWeight: "700" }}>Edit</Text>
           </Pressable>
         </View>
 
         {/* Body */}
-        <View style={styles.body}>
-          <Text style={styles.sectionTitle}>Description</Text>
-          <Text style={styles.textMuted}>{description}</Text>
+        <View style={{ marginTop: space[4] }}>
+          <Text style={{ fontWeight: "800", fontSize: typography.sizes.heading, color: colors.foreground, marginBottom: 6 }}>Description</Text>
+          <Text style={{ color: colors.muted.foreground }}>{description}</Text>
 
-          <View style={styles.row}>
-            <Ionicons name="logo-instagram" size={16} />
-            <Text style={[styles.textMuted, { marginLeft: 8 }]}>{instagram}</Text>
+          <View style={{ flexDirection: "row", alignItems: "center", marginTop: space[2] }}>
+            <Ionicons name="logo-instagram" size={16} color={colors.accent.foreground} />
+            <Text style={{ color: colors.muted.foreground, marginLeft: 8 }}>{instagram}</Text>
           </View>
         </View>
       </View>
 
       {/* Resto del perfil: listas, tabs internas, etc. */}
-      <View style={styles.block}>
+  <View style={{ marginTop: space[3] }}>
         <EventsSection
           title="Tus eventos"
           filters={["All", "Friends"]}
@@ -154,75 +169,27 @@ export default function ProfilePage() {
       <View style={{ flex: 1, justifyContent: "flex-end"}}>
         <TouchableOpacity
           onPress={handleSignOut}
-          style={styles.signOutButton}
+          style={{
+            backgroundColor: colors.destructive.DEFAULT,
+            borderRadius: radii.lg,
+            paddingVertical: space[4],
+            marginBottom: space[5],
+            shadowColor: "#000",
+            shadowOpacity: 0.1,
+            shadowOffset: { width: 0, height: 1 },
+            shadowRadius: 2,
+          }}
           activeOpacity={0.8}
         >
-          <View style={styles.signOutContent}>
-            <Ionicons name="log-out-outline" size={20} color="white" />
-            <Text style={styles.signOutText}>Sign Out</Text>
+          <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "center" }}>
+            <Ionicons name="log-out-outline" size={20} color={colors.card.DEFAULT} />
+            <Text style={{ color: colors.card.DEFAULT, fontWeight: "600", fontSize: 16, marginLeft: 8 }}>Sign Out</Text>
           </View>
         </TouchableOpacity>
       </View>
   </View>
 
   );
-}
+} 
 
 
-const styles = StyleSheet.create({
-  signOutButton: {
-    backgroundColor: "#DC2626", // bg-red-600
-    borderRadius: 12,           // rounded-xl
-    paddingVertical: 16,        // py-4
-    marginBottom: 24,           // mb-6
-    shadowColor: "#000",
-    shadowOpacity: 0.1,         // shadow-sm
-    shadowOffset: { width: 0, height: 1 },
-    shadowRadius: 2,
-  },
-  signOutContent: {
-    flexDirection: "row",       // flex-row
-    alignItems: "center",       // items-center
-    justifyContent: "center",   // justify-center
-  },
-  signOutText: {
-    color: "white",             // text-white
-    fontWeight: "600",          // font-semibold
-    fontSize: 16,               // text-base
-    marginLeft: 8,              // ml-2
-  },
-
-  safe: { flex: 1, backgroundColor: "#0B0136", padding: 16 }, // igual que edit
-  card: {
-    backgroundColor: "#fff",
-    borderRadius: 16,
-    padding: 16,
-    shadowColor: "#000",
-    shadowOpacity: 0.08,
-    shadowRadius: 12,
-    elevation: 3,
-  },
-  
-  header: { flexDirection: "row", alignItems: "center", marginBottom: 16 },
-  avatar: { width: 56, height: 56, borderRadius: 28, marginRight: 12, backgroundColor: "#eee" },
-  username: { fontSize: 18, fontWeight: "700", color: "#6D28D9" },
-  sub: { color: "#A78BFA", marginTop: 2 },
-  iconBtn: {
-    width: 36, height: 36, borderRadius: 18, alignItems: "center", justifyContent: "center",
-    backgroundColor: "#E9D5FF", marginRight: 8,
-  },
-
-  editBtn: {
-    paddingHorizontal: 12, height: 36, borderRadius: 18,
-    alignItems: "center", justifyContent: "center", backgroundColor: "#6D28D9",
-  },
-
-
-  editTxt: { color: "#fff", fontWeight: "700" },
-  body: { marginTop: 16 },
-  sectionTitle: { fontWeight: "800", fontSize: 16, color: "#111827", marginBottom: 6 },
-  textMuted: { color: "#6B7280" },
-  row: { flexDirection: "row", alignItems: "center", marginTop: 8 },
-    
-  block: { marginTop: 12 },
-});

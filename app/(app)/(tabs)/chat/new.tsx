@@ -3,10 +3,12 @@ import { ActivityIndicator, FlatList, Pressable, Text, TextInput, View } from 'r
 import { router } from 'expo-router';
 import { supabase } from '@/app/src/lib/supabase';
 import { createConversationWithUsers } from '@/app/src/chat/actions';
+import { useTheme } from '@/app/../theme/theme';
 
 type Row = { id: string; username: string };
 
 export default function NewChat() {
+  const { colors, space, radii } = useTheme();
   const [q, setQ] = useState('');
   const [results, setResults] = useState<Row[]>([]);
   const [loading, setLoading] = useState(false);
@@ -38,30 +40,30 @@ export default function NewChat() {
   }, [q]);
 
   return (
-    <View style={{ flex: 1, backgroundColor: '#EFE6DA' }}>
-      <View style={{ padding: 16, gap: 12 }}>
-        <Text style={{ fontWeight: '800', fontSize: 18, color: '#1F2937' }}>Start a new chat</Text>
+    <View style={{ flex: 1, backgroundColor: colors.background }}>
+      <View style={{ padding: space[4], gap: space[3] }}>
+        <Text style={{ fontWeight: '800', fontSize: 18, color: colors.foreground }}>Start a new chat</Text>
         <View style={{
-          backgroundColor: '#FFF', borderRadius: 12, borderWidth: 1, borderColor: '#EEE7DB',
-          paddingHorizontal: 12, paddingVertical: 10, flexDirection: 'row', alignItems: 'center', gap: 8
+          backgroundColor: colors.input, borderRadius: radii.lg, borderWidth: 1, borderColor: colors.border,
+          paddingHorizontal: space[3], paddingVertical: space[2], flexDirection: 'row', alignItems: 'center', gap: space[2]
         }}>
           <TextInput
             placeholder="Search users by name…"
-            placeholderTextColor="#9CA3AF"
+            placeholderTextColor={colors.accent[400] || colors.primary[400]}
             value={q}
             onChangeText={setQ}
-            style={{ flex: 1, color: '#111827' }}
+            style={{ flex: 1, color: colors.foreground }}
             autoCapitalize="none"
           />
         </View>
       </View>
 
-      {loading ? <ActivityIndicator style={{ marginTop: 8 }} color="#6C2BD9" /> : null}
+      {loading ? <ActivityIndicator style={{ marginTop: space[2] }} color={colors.primary.DEFAULT} /> : null}
 
       <FlatList
         data={results}
         keyExtractor={(i) => i.id}
-        contentContainerStyle={{ padding: 16, gap: 10 }}
+        contentContainerStyle={{ padding: space[4], gap: space[2] }}
         renderItem={({ item }) => (
           <Pressable
             onPress={async () => {
@@ -69,12 +71,12 @@ export default function NewChat() {
               router.replace(`/chat/${id}`);
             }}
             style={{
-              backgroundColor: '#fff', borderRadius: 16, borderWidth: 1, borderColor: '#EEE7DB',
-              padding: 16, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'
+              backgroundColor: colors.card.DEFAULT, borderRadius: radii.lg, borderWidth: 1, borderColor: colors.border,
+              padding: space[4], flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'
             }}
           >
-            <Text style={{ color: '#1F2937' }}>{item.username}</Text>
-            <Text style={{ color: '#6C2BD9', fontWeight: '700' }}>Chat</Text>
+            <Text style={{ color: colors.foreground }}>{item.username}</Text>
+            <Text style={{ color: colors.primary.DEFAULT, fontWeight: '700' }}>Chat</Text>
           </Pressable>
         )}
       />

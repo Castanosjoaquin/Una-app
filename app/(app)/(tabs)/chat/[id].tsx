@@ -5,12 +5,14 @@ import { Ionicons } from '@expo/vector-icons';
 import { sendMessage } from '@/app/src/chat/actions';
 import { useMessages } from '@/app/src/chat/useMessages';
 import { supabase } from '@/app/src/lib/supabase';
+import { useTheme } from '@/app/../theme/theme';
 
 export default function ChatRoom() {
   const { id } = useLocalSearchParams<{ id: string }>();
   const { items, loadMore } = useMessages(id!);
   const [draft, setDraft] = useState('');
   const listRef = useRef<FlatList>(null);
+  const { colors, space, radii } = useTheme();
 
   useEffect(() => {
     // opcional: marcar lectura
@@ -24,7 +26,7 @@ export default function ChatRoom() {
 
   return (
     <KeyboardAvoidingView
-      style={{ flex: 1, backgroundColor: '#EFE6DA' }}
+      style={{ flex: 1, backgroundColor: colors.background }}
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       keyboardVerticalOffset={Platform.OS === 'ios' ? 120 : 80}
     >
@@ -32,7 +34,7 @@ export default function ChatRoom() {
         ref={listRef}
         data={[...items].reverse()}
         keyExtractor={(m) => String(m.id)}
-        contentContainerStyle={{ padding: 12, gap: 8 }}
+        contentContainerStyle={{ padding: space[3], gap: space[2] }}
         onEndReached={loadMore}
         renderItem={({ item }) => (
           <Bubble mine={item.sender_id === (supabase.auth.getUser() as any)._c?.data?.user?.id} text={item.content} />
@@ -40,13 +42,13 @@ export default function ChatRoom() {
         inverted
       />
 
-      <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8, padding: 10, backgroundColor: '#EFE6DA' }}>
+      <View style={{ flexDirection: 'row', alignItems: 'center', gap: space[2], padding: space[2], backgroundColor: colors.background }}>
         <TextInput
           value={draft}
           onChangeText={setDraft}
           placeholder="Message…"
-          placeholderTextColor="#9CA3AF"
-          style={{ flex: 1, backgroundColor: '#fff', borderColor: '#EEE7DB', borderWidth: 1, borderRadius: 12, paddingHorizontal: 12, paddingVertical: 10, color:'#111827' }}
+          placeholderTextColor={colors.accent[400] || colors.primary[400]}
+          style={{ flex: 1, backgroundColor: colors.input, borderColor: colors.border, borderWidth: 1, borderRadius: radii.lg, paddingHorizontal: space[3], paddingVertical: space[2], color: colors.primary.DEFAULT }}
         />
         <Pressable
           onPress={async () => {
@@ -55,9 +57,9 @@ export default function ChatRoom() {
             setDraft('');
             try { await sendMessage(id!, txt); } catch { setDraft(txt); }
           }}
-          style={{ backgroundColor: '#6C2BD9', width: 44, height: 44, borderRadius: 12, alignItems: 'center', justifyContent: 'center' }}
+          style={{ backgroundColor: colors.primary.DEFAULT, width: 44, height: 44, borderRadius: radii.lg, alignItems: 'center', justifyContent: 'center' }}
         >
-          <Ionicons name="send" size={18} color="#fff" />
+          <Ionicons name="send" size={18} color={colors.primary.foreground} />
         </Pressable>
       </View>
     </KeyboardAvoidingView>
@@ -65,20 +67,21 @@ export default function ChatRoom() {
 }
 
 function Bubble({ mine, text }: { mine: boolean; text: string }) {
+  const { colors, radii, space } = useTheme();
   return (
     <View
       style={{
         alignSelf: mine ? 'flex-end' : 'flex-start',
-        backgroundColor: mine ? '#6C2BD9' : '#FFFFFF',
+        backgroundColor: mine ? colors.primary.DEFAULT : colors.card.DEFAULT,
         borderWidth: 1,
-        borderColor: mine ? 'transparent' : '#EEE7DB',
-        paddingVertical: 8,
-        paddingHorizontal: 12,
-        borderRadius: 12,
+        borderColor: mine ? 'transparent' : colors.border,
+        paddingVertical: space[2],
+        paddingHorizontal: space[3],
+        borderRadius: radii.lg,
         maxWidth: '80%',
       }}
     >
-      <Text style={{ color: mine ? '#fff' : '#1F2937' }}>{text}</Text>
+      <Text style={{ color: mine ? colors.primary.foreground : colors.foreground }}>{text}</Text>
     </View>
   );
 }

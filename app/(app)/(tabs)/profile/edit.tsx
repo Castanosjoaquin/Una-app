@@ -1,12 +1,11 @@
 import React, { useEffect, useMemo, useState } from "react";
-import {
-  View, Text, StyleSheet, ScrollView, TextInput, TouchableOpacity,
-  Switch, Alert, ActivityIndicator
-} from "react-native";
+import { View, Text, ScrollView, TextInput, TouchableOpacity, Switch, Alert, ActivityIndicator } from "react-native";
 import { Image } from "expo-image";
 import * as ImagePicker from "expo-image-picker";
 import { Ionicons } from "@expo/vector-icons";
 import { supabase } from "@/app/src/lib/supabase"; // ← tu cliente inicializado
+
+import { useTheme } from "@/app/../theme/theme";
 
 type Profile = {
   id: string;
@@ -23,6 +22,7 @@ type Profile = {
 const AVATAR_BUCKET = "avatars";
 
 export default function EditProfileScreen() {
+  const theme = useTheme();
   const [userId, setUserId] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
@@ -172,48 +172,95 @@ export default function EditProfileScreen() {
 
   if (loading) {
     return (
-      <View style={[styles.container, { alignItems: "center", justifyContent: "center" }]}>
-        <ActivityIndicator size="large" />
+      <View style={{ flex: 1, backgroundColor: theme.colors.background, alignItems: "center", justifyContent: "center" }}>
+        <ActivityIndicator size="large" color={theme.colors.primary} />
       </View>
     );
   }
 
   return (
-    <ScrollView style={styles.container} contentContainerStyle={{ paddingBottom: 40 }}>
+    <ScrollView
+      style={{ flex: 1, backgroundColor: theme.colors.background, padding: theme.space[4] }}
+      contentContainerStyle={{ paddingBottom: theme.space[10] }}
+    >
       {/* Avatar + camera button */}
-      <View style={styles.avatarWrap}>
-        <Image
-          source={avatarUrl || "https://upload.wikimedia.org/wikipedia/commons/9/99/Sample_User_Icon.png"}
-          style={styles.avatar}
-          contentFit="cover"
-        />
-        <TouchableOpacity style={styles.camBtn} onPress={pickAvatar}>
-          <Ionicons name="camera" size={16} color="#7C3AED" />
-        </TouchableOpacity>
+      <View style={{ alignItems: "center", marginTop: theme.space[2], marginBottom: theme.space[5] }}>
+        <View style={{ position: "relative", width: 96, height: 96 }}>
+          <Image
+            source={avatarUrl || "https://upload.wikimedia.org/wikipedia/commons/9/99/Sample_User_Icon.png"}
+            style={{
+              width: 96,
+              height: 96,
+              borderRadius: 48,
+              backgroundColor: theme.colors.background,
+              borderWidth: 2,
+              borderColor: theme.colors.border,
+            }}
+            contentFit="cover"
+          />
+          <TouchableOpacity
+            style={{
+              position: "absolute",
+              right: 0,
+              bottom: 0,
+              width: 32,
+              height: 32,
+              borderRadius: 16,
+              backgroundColor: theme.colors.background,
+              alignItems: "center",
+              justifyContent: "center",
+              borderWidth: 1,
+              borderColor: theme.colors.border,
+              shadowColor: '#000',
+              shadowOpacity: 0.08,
+              shadowRadius: 4,
+              elevation: 2,
+            }}
+            onPress={pickAvatar}
+          >
+            <Ionicons name="camera" size={18} color={theme.colors.primary.DEFAULT} />
+          </TouchableOpacity>
+        </View>
       </View>
 
       {/* Name */}
-      <Text style={styles.label}>Username</Text>
+  <Text style={{ marginTop: theme.space[2], marginBottom: theme.space[1], fontWeight: "700", color: theme.colors.primary[900] }}>{"Username"}</Text>
       <TextInput
         value={username}
         onChangeText={setUsername}
         placeholder="Your username"
-        style={styles.input}
+        style={{
+          backgroundColor: '#fff',
+          borderWidth: 1,
+          borderColor: theme.colors.primary[200],
+          paddingHorizontal: theme.space[3],
+          paddingVertical: theme.space[3],
+          borderRadius: theme.radii.lg,
+          fontSize: 15,
+        }}
       />
 
       {/* Social */}
-      <Text style={styles.label}>Social Page</Text>
+  <Text style={{ marginTop: theme.space[2], marginBottom: theme.space[1], fontWeight: "700", color: theme.colors.primary[900] }}>{"Social Page"}</Text>
       <TextInput
         value={socialUrl}
         onChangeText={setSocialUrl}
         placeholder="https://instagram.com/username"
         autoCapitalize="none"
         autoCorrect={false}
-        style={styles.input}
+        style={{
+          backgroundColor: '#fff',
+          borderWidth: 1,
+          borderColor: theme.colors.primary[200],
+          paddingHorizontal: theme.space[3],
+          paddingVertical: theme.space[3],
+          borderRadius: theme.radii.lg,
+          fontSize: 15,
+        }}
       />
 
       {/* Bio */}
-      <Text style={styles.label}>Bio</Text>
+  <Text style={{ marginTop: theme.space[2], marginBottom: theme.space[1], fontWeight: "700", color: theme.colors.primary[900] }}>{"Bio"}</Text>
       <TextInput
         value={bio}
         onChangeText={setBio}
@@ -221,149 +268,151 @@ export default function EditProfileScreen() {
         multiline
         textAlignVertical="top"
         numberOfLines={5}
-        style={[styles.input, { height: 120 }]}
+        style={{
+          backgroundColor: '#fff',
+          borderWidth: 1,
+          borderColor: theme.colors.primary[200],
+          paddingHorizontal: theme.space[3],
+          paddingVertical: theme.space[3],
+          borderRadius: theme.radii.lg,
+          fontSize: 15,
+          height: 120,
+        }}
       />
 
       {/* Neighborhood */}
-      <Text style={styles.label}>Neighborhood</Text>
+  <Text style={{ marginTop: theme.space[2], marginBottom: theme.space[1], fontWeight: "700", color: theme.colors.primary[900] }}>{"Neighborhood"}</Text>
       <TextInput
         value={neighborhood}
         onChangeText={setNeighborhood}
         placeholder="e.g. Palermo, Buenos Aires"
-        style={styles.input}
+        style={{
+          backgroundColor: '#fff',
+          borderWidth: 1,
+          borderColor: theme.colors.primary[200],
+          paddingHorizontal: theme.space[3],
+          paddingVertical: theme.space[3],
+          borderRadius: theme.radii.lg,
+          fontSize: 15,
+        }}
       />
 
       {/* Specialties */}
-      <Text style={styles.label}>Specialties</Text>
+  <Text style={{ marginTop: theme.space[2], marginBottom: theme.space[1], fontWeight: "700", color: theme.colors.primary[900] }}>{"Specialties"}</Text>
       <TagInput
         values={specialties}
         onAdd={addSpecialty}
         onRemove={removeSpecialty}
+        theme={theme}
       />
 
       {/* Privacy Settings */}
-      <Text style={[styles.sectionTitle, { marginTop: 16 }]}>Privacy Settings</Text>
+  <Text style={{ fontWeight: "800", fontSize: 16, color: theme.colors.foreground, marginBottom: theme.space[2], marginTop: theme.space[4] }}>{"Privacy Settings"}</Text>
 
       <RowSwitch
         label="Private Profile"
         value={privateProfile}
         onValueChange={setPrivateProfile}
+        theme={theme}
       />
       <RowSwitch
         label="Show in Search"
         value={showInSearch}
         onValueChange={setShowInSearch}
+        theme={theme}
       />
 
       {/* Save */}
       <TouchableOpacity
-        style={[styles.saveBtn, saving && { opacity: 0.7 }]}
+        style={{
+          marginTop: theme.space[5],
+          backgroundColor: theme.colors.primary.DEFAULT,
+          borderRadius: theme.radii.lg,
+          paddingVertical: theme.space[4],
+          alignItems: "center",
+          opacity: saving ? 0.7 : 1,
+        }}
         onPress={onSave}
         disabled={saving}
         activeOpacity={0.8}
       >
-        {saving ? <ActivityIndicator color="#fff" /> : <Text style={styles.saveTxt}>Save Changes</Text>}
+        {saving ? <ActivityIndicator color={theme.colors.primary.foreground} /> : <Text style={{ color: theme.colors.primary.foreground, fontWeight: "800" }}>Save Changes</Text>}
       </TouchableOpacity>
     </ScrollView>
   );
 }
 
-/* ------- Helpers UI ------- */
+// ------- Helpers UI -------
 
-function RowSwitch({ label, value, onValueChange }: { label: string; value: boolean; onValueChange: (v: boolean) => void }) {
+function RowSwitch({ label, value, onValueChange, theme }: { label: string; value: boolean; onValueChange: (v: boolean) => void; theme: any }) {
   return (
-    <View style={rowStyles.row}>
-      <Text style={rowStyles.label}>{label}</Text>
+    <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-between", paddingVertical: theme.space[2] }}>
+      <Text style={{ color: theme.colors.foreground, fontSize: 15 }}>{label}</Text>
       <Switch value={value} onValueChange={onValueChange} />
     </View>
   );
 }
 
-function TagInput({
-  values, onAdd, onRemove,
-}: { values: string[]; onAdd: (t: string) => void; onRemove: (t: string) => void }) {
+function TagInput({ values, onAdd, onRemove, theme }: { values: string[]; onAdd: (t: string) => void; onRemove: (t: string) => void; theme: any }) {
   const [text, setText] = useState("");
   return (
-    <View style={{ marginBottom: 8 }}>
-      <View style={chipStyles.wrap}>
+    <View style={{ marginBottom: theme.space[2] }}>
+      <View style={{ flexDirection: "row", flexWrap: "wrap", gap: theme.space[2], marginBottom: theme.space[2] }}>
         {values.map((t) => (
-          <View key={t} style={chipStyles.chip}>
-            <Text style={chipStyles.chipTxt}>{t}</Text>
-            <TouchableOpacity onPress={() => onRemove(t)} style={chipStyles.xBtn}>
-              <Ionicons name="close" size={12} color="#6B7280" />
+          <View key={t} style={{
+            flexDirection: "row",
+            alignItems: "center",
+            paddingHorizontal: theme.space[2],
+            paddingVertical: theme.space[1],
+            backgroundColor: theme.colors.neutral[100],
+            borderRadius: 999,
+          }}>
+            <Text style={{ fontSize: 12, color: theme.colors.foreground, fontWeight: "600" }}>{t}</Text>
+            <TouchableOpacity onPress={() => onRemove(t)} style={{ marginLeft: theme.space[1] }}>
+              <Ionicons name="close" size={12} color={theme.colors.neutral[400]} />
             </TouchableOpacity>
           </View>
         ))}
       </View>
-      <View style={{ flexDirection: "row", columnGap: 8 }}>
+      <View style={{ flexDirection: "row", columnGap: theme.space[2] }}>
         <TextInput
           value={text}
           onChangeText={setText}
           placeholder="Add specialty"
-          style={[styles.input, { flex: 1 }]}
+          style={{
+            backgroundColor: '#fff',
+            borderWidth: 1,
+            borderColor: theme.colors.primary[200],
+            paddingHorizontal: theme.space[3],
+            paddingVertical: theme.space[3],
+            borderRadius: theme.radii.lg,
+            fontSize: 15,
+            flex: 1,
+          }}
           onSubmitEditing={() => {
             onAdd(text);
             setText("");
           }}
         />
-        <TouchableOpacity style={chipStyles.addBtn} onPress={() => { onAdd(text); setText(""); }}>
-          <Ionicons name="add" size={18} color="#7C3AED" />
-          <Text style={{ color: "#7C3AED", fontWeight: "700", marginLeft: 4 }}>Add</Text>
+        <TouchableOpacity
+          style={{
+            flexDirection: "row",
+            alignItems: "center",
+            paddingHorizontal: theme.space[3],
+            paddingVertical: theme.space[2],
+            borderRadius: theme.radii.md,
+            borderWidth: 1,
+            borderColor: theme.colors.primary[200],
+            backgroundColor: theme.colors.background,
+          }}
+          onPress={() => { onAdd(text); setText(""); }}
+        >
+          <Ionicons name="add" size={18} color={theme.colors.primary.DEFAULT} />
+          <Text style={{ color: theme.colors.primary.DEFAULT, fontWeight: "700", marginLeft: theme.space[1] }}>Add</Text>
         </TouchableOpacity>
       </View>
     </View>
   );
 }
 
-/* ------- Styles ------- */
-
-const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: "#FFF7ED", padding: 16 }, // fondo cálido
-  avatarWrap: { alignItems: "center", marginTop: 8, marginBottom: 20 },
-  avatar: { width: 96, height: 96, borderRadius: 48, backgroundColor: "#eee" },
-  camBtn: {
-    position: "absolute", right: -16, bottom: -4, // 96/6 = 16
-    width: 28, height: 28, borderRadius: 14, backgroundColor: "#fff",
-    alignItems: "center", justifyContent: "center", borderWidth: 1, borderColor: "#E5E7EB",
-  },
-  label: { marginTop: 8, marginBottom: 6, fontWeight: "700", color: "#6D28D9" },
-  input: {
-    backgroundColor: "white", borderWidth: 1, borderColor: "#E9D5FF",
-    paddingHorizontal: 14, paddingVertical: 12, borderRadius: 12, fontSize: 15,
-  },
-  sectionTitle: { fontWeight: "800", fontSize: 16, color: "#111827", marginBottom: 8 },
-  saveBtn: {
-    marginTop: 20, backgroundColor: "#6D28D9", borderRadius: 14,
-    paddingVertical: 14, alignItems: "center",
-  },
-  saveTxt: { color: "white", fontWeight: "800" },
-});
-
-const rowStyles = StyleSheet.create({
-  row: { flexDirection: "row", alignItems: "center", justifyContent: "space-between", paddingVertical: 10 },
-  label: { color: "#111827", fontSize: 15 },
-});
-
-const chipStyles = StyleSheet.create({
-  wrap: { flexDirection: "row", flexWrap: "wrap", gap: 8, marginBottom: 8 },
-  chip: {
-    flexDirection: "row",
-    alignItems: "center",
-    paddingHorizontal: 10,
-    paddingVertical: 6,
-    backgroundColor: "#F3F4F6",
-    borderRadius: 999,
-  },
-  chipTxt: { fontSize: 12, color: "#111827", fontWeight: "600" },
-  xBtn: { marginLeft: 6 },
-  addBtn: {
-    flexDirection: "row",
-    alignItems: "center",
-    paddingHorizontal: 12,
-    paddingVertical: 10,
-    borderRadius: 10,
-    borderWidth: 1,
-    borderColor: "#E9D5FF",
-    backgroundColor: "#FFFFFF",
-  },
-});
+// Styles removed: all styles are now inline and use theme tokens

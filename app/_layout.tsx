@@ -3,8 +3,8 @@ import React,{ useEffect  } from "react";
 import { AppState,View } from "react-native";
 import { supabase } from './src/lib/supabase'
 import "react-native-url-polyfill/auto";
-import { ThemeProvider } from "../theme/provider";
-
+import { ThemeProvider } from 'styled-components/native';
+import { useTheme } from '../theme/theme';
 // Si alguna lib lo necesita: import 'react-native-get-random-values';
 
 export default function RootLayout() {
@@ -22,6 +22,9 @@ export default function RootLayout() {
     };
   }, []);
 
-  return <View style={{ flex: 1, backgroundColor: '#EFE6DA' }}><Slot/></View>;
+  return( 
+  <ThemeProvider theme={useTheme()}>
+    <View style={{ flex: 1, backgroundColor: '#EFE6DA' }}><Slot/></View>
+  </ThemeProvider>);
 }
   

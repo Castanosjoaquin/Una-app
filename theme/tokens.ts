@@ -1,141 +1,289 @@
-// theme/tokens.ts
-export type ColorScale = {
-  [k: number]: string; // ej: 50..950
-};
-
-export type Palette = {
-  neutral: ColorScale;
-  coral: ColorScale;
-  success: string;
-  warning: string;
-  destructive: string;
-  brand: string;
-};
-
-export type Semantic = {
-  background: string;
-  foreground: string;
-  muted: string;
-  mutedForeground: string;
-  card: string;
-  cardForeground: string;
-  popover: string;
-  popoverForeground: string;
-  border: string;
-  ring: string;
+// AUTO-GENERATED TOKEN FILE
+export const colorsLight = {
+  background: 'hsl(82 75% 85%)',
+  foreground: 'hsl(215 25% 27%)',
+  border: 'hsl(220 13% 91%)',
+  input: 'hsl(0 0% 100%)',
+  ring: 'hsl(239 84% 67%)',
+  card: {
+    DEFAULT: 'hsl(0 0% 100%)',
+    foreground: 'hsl(224 71% 4%)',
+  },
+  popover: {
+    DEFAULT: 'hsl(0 0% 100%)',
+    foreground: 'hsl(224 71% 4%)',
+  },
+  primary: {
+    DEFAULT: 'hsl(239 84% 67%)',
+    foreground: 'hsl(0 0% 100%)',
+    900: 'hsl(239 84% 27%)',
+    800: 'hsl(239 84% 37%)',
+    700: 'hsl(239 84% 47%)',
+    600: 'hsl(239 84% 57%)',
+    500: 'hsl(239 84% 67%)',
+    400: 'hsl(239 84% 77%)',
+    300: 'hsl(239 84% 87%)',
+    200: 'hsl(239 84% 93%)',
+    100: 'hsl(239 84% 97%)',
+  },
+  secondary: {
+    DEFAULT: 'hsl(217 91% 60%)',
+    foreground: 'hsl(0 0% 100%)',
+    900: 'hsl(217 91% 20%)',
+    800: 'hsl(217 91% 30%)',
+    700: 'hsl(217 91% 40%)',
+    600: 'hsl(217 91% 50%)',
+    500: 'hsl(217 91% 60%)',
+    400: 'hsl(217 91% 70%)',
+    300: 'hsl(217 91% 80%)',
+    200: 'hsl(217 91% 90%)',
+    100: 'hsl(217 91% 95%)',
+  },
+  accent: {
+    DEFAULT: 'hsl(220 14% 96%)',
+    foreground: 'hsl(224 71% 4%)',
+    700: 'hsl(215 28% 17%)',
+    600: 'hsl(217 19% 27%)',
+    500: 'hsl(220 9% 46%)',
+    400: 'hsl(220 13% 69%)',
+    300: 'hsl(220 14% 83%)',
+  },
+  tertiary: {
+    DEFAULT: 'hsl(262 83% 58%)',
+    foreground: 'hsl(0 0% 100%)',
+    900: 'hsl(262 83% 18%)',
+    800: 'hsl(262 83% 28%)',
+    700: 'hsl(262 83% 38%)',
+    600: 'hsl(262 83% 48%)',
+    500: 'hsl(262 83% 58%)',
+    400: 'hsl(262 83% 68%)',
+    300: 'hsl(262 83% 78%)',
+    200: 'hsl(262 83% 88%)',
+    100: 'hsl(262 83% 94%)',
+  },
+  coral: {
+    DEFAULT: 'hsl(14 100% 65%)',
+    foreground: 'hsl(0 0% 100%)',
+    hover: 'hsl(14 100% 60%)',
+  },
+  success: {
+    DEFAULT: 'hsl(142 76% 36%)',
+    foreground: 'hsl(0 0% 100%)',
+  },
+  warning: {
+    DEFAULT: 'hsl(25 95% 50%)',
+    foreground: 'hsl(0 0% 100%)',
+  },
+  destructive: {
+    DEFAULT: 'hsl(0 84% 60%)',
+    foreground: 'hsl(0 0% 100%)',
+  },
+  neutral: {
+    900: 'hsl(224 71% 4%)',
+    800: 'hsl(215 25% 27%)',
+    700: 'hsl(217 19% 35%)',
+    600: 'hsl(215 14% 48%)',
+    500: 'hsl(220 9% 46%)',
+    400: 'hsl(220 13% 69%)',
+    300: 'hsl(220 14% 83%)',
+    200: 'hsl(220 14% 90%)',
+    100: 'hsl(220 14% 96%)',
+  },
+  muted: {
+    DEFAULT: 'hsl(0 0% 94%)',
+    foreground: 'hsl(276 60% 25%)',
+  },
   sidebar: {
-    bg: string;
-    fg: string;
-    border: string;
-    primary: string;
-    accent: string;
-    accentFg: string;
-    ring: string;
-  };
-};
-
-export type Typography = {
-  fontFamily: {
-    app: string;
-    display: string;
-    mono: string;
-  };
-  fontSize: {
-    xs: number; sm: number; base: number; lg: number; xl: number; "2xl": number; "3xl": number;
-    caption: number;
-  };
-  lineHeight: {
-    tight: number; normal: number; relaxed: number;
-  };
-};
-
-export type Radii = { sm: number; md: number; lg: number; full: number; };
-
-export type Shadows = {
-  button: { shadowColor: string; shadowOpacity: number; shadowRadius: number; shadowOffset: { width:number; height:number }; elevation: number; };
-  card:   { shadowColor: string; shadowOpacity: number; shadowRadius: number; shadowOffset: { width:number; height:number }; elevation: number; };
-};
-
-export type Spacing = { xs:number; sm:number; md:number; lg:number; xl:number; };
-
-export type Touch = { sm:number; md:number; lg:number; xl:number; };
-
-export type Tokens = {
-  palette: Palette;
-  semantic: Semantic;
-  typography: Typography;
-  radii: Radii;
-  shadows: Shadows;
-  spacing: Spacing;
-  touch: Touch;
-};
-
-export const lightTokens: Tokens = {
-  palette: {
-    neutral: { 50:"#F9FAFB",100:"#F3F4F6",200:"#E5E7EB",300:"#D1D5DB",400:"#9CA3AF",500:"#6B7280",600:"#4B5563",700:"#374151",800:"#1F2937",900:"#111827",950:"#0B1220" },
-    coral:   { 50:"#FFF3ED",100:"#FFE2D5",200:"#FFC4AC",300:"#FFA785",400:"#FF8A61",500:"#FF6D3F",600:"#FB5A2A",700:"#E14B21",800:"#B73A19",900:"#7A260F",950:"#421409" },
-    success: "#10B981",
-    warning: "#F59E0B",
-    destructive: "#EF4444",
-    brand: "#6D28D9",
+    background: 'hsl(210 20% 98%)',
+    foreground: 'hsl(222 84% 15%)',
+    primary: 'hsl(222 84% 15%)',
+    'primary-foreground': 'hsl(0 0% 100%)',
+    accent: 'hsl(157 100% 60%)',
+    'accent-foreground': 'hsl(222 84% 15%)',
+    border: 'hsl(210 20% 88%)',
+    ring: 'hsl(157 100% 50%)',
   },
-  semantic: {
-    background:"#FFFFFF",
-    foreground:"#111827",
-    muted:"#F3F4F6",
-    mutedForeground:"#374151",
-    card:"#FFFFFF",
-    cardForeground:"#111827",
-    popover:"#FFFFFF",
-    popoverForeground:"#111827",
-    border:"#E5E7EB",
-    ring:"#E9D5FF",
-    sidebar: {
-      bg:"#F9FAFB",
-      fg:"#111827",
-      border:"#E5E7EB",
-      primary:"#111827",
-      accent:"#F3F4F6",
-      accentFg:"#111827",
-      ring:"#E5E7EB",
-    }
-  },
-  typography: {
-    fontFamily: { app:"System", display:"System", mono:"Menlo" },
-    fontSize: { xs:12, sm:14, base:16, lg:18, xl:20, "2xl":24, "3xl":30, caption:12 },
-    lineHeight: { tight:18, normal:22, relaxed:26 },
-  },
-  radii: { sm:8, md:12, lg:16, full:999 },
-  shadows: {
-    button: { shadowColor:"#000", shadowOpacity:0.08, shadowRadius:6, shadowOffset:{ width:0, height:2 }, elevation:2 },
-    card:   { shadowColor:"#000", shadowOpacity:0.06, shadowRadius:12, shadowOffset:{ width:0, height:2 }, elevation:3 },
-  },
-  spacing: { xs:4, sm:8, md:12, lg:16, xl:20 },
-  touch: { sm:36, md:44, lg:56, xl:68 },
 };
 
-export const darkTokens: Tokens = {
-  ...lightTokens,
-  semantic: {
-    ...lightTokens.semantic,
-    background:"#0B1220",
-    foreground:"#F3F4F6",
-    muted:"#111827",
-    mutedForeground:"#9CA3AF",
-    card:"#0F172A",
-    cardForeground:"#F3F4F6",
-    popover:"#0F172A",
-    popoverForeground:"#F3F4F6",
-    border:"#1F2937",
-    ring:"#4C1D95",
-    sidebar: {
-      bg:"#0F172A",
-      fg:"#F3F4F6",
-      border:"#1F2937",
-      primary:"#F3F4F6",
-      accent:"#111827",
-      accentFg:"#F3F4F6",
-      ring:"#4B5563",
-    }
-  }
+export const colorsDark = {
+  background: 'hsl(82 45% 10%)',
+  foreground: 'hsl(0 0% 98%)',
+  border: 'hsl(215 28% 17%)',
+  input: 'hsl(224 71% 8%)',
+  ring: 'hsl(239 84% 77%)',
+  card: {
+    DEFAULT: 'hsl(224 71% 8%)',
+    foreground: 'hsl(0 0% 98%)',
+  },
+  popover: {
+    DEFAULT: 'hsl(224 71% 8%)',
+    foreground: 'hsl(0 0% 98%)',
+  },
+  primary: {
+    DEFAULT: 'hsl(239 84% 77%)',
+    foreground: 'hsl(224 71% 4%)',
+    900: 'hsl(239 84% 37%)',
+    800: 'hsl(239 84% 47%)',
+    700: 'hsl(239 84% 57%)',
+    600: 'hsl(239 84% 67%)',
+    500: 'hsl(239 84% 77%)',
+    400: 'hsl(239 84% 82%)',
+    300: 'hsl(239 84% 87%)',
+    200: 'hsl(239 84% 92%)',
+    100: 'hsl(239 84% 96%)',
+  },
+  secondary: {
+    DEFAULT: 'hsl(217 91% 70%)',
+    foreground: 'hsl(224 71% 4%)',
+    900: 'hsl(217 91% 30%)',
+    800: 'hsl(217 91% 40%)',
+    700: 'hsl(217 91% 50%)',
+    600: 'hsl(217 91% 60%)',
+    500: 'hsl(217 91% 70%)',
+    400: 'hsl(217 91% 75%)',
+    300: 'hsl(217 91% 80%)',
+    200: 'hsl(217 91% 85%)',
+    100: 'hsl(217 91% 90%)',
+  },
+  accent: {
+    DEFAULT: 'hsl(215 28% 17%)',
+    foreground: 'hsl(0 0% 98%)',
+    700: 'hsl(220 14% 96%)',
+    600: 'hsl(220 14% 83%)',
+    500: 'hsl(220 13% 69%)',
+    400: 'hsl(220 9% 46%)',
+    300: 'hsl(217 19% 27%)',
+  },
+  tertiary: {
+    DEFAULT: 'hsl(262 83% 68%)',
+    foreground: 'hsl(224 71% 4%)',
+    900: 'hsl(262 83% 28%)',
+    800: 'hsl(262 83% 38%)',
+    700: 'hsl(262 83% 48%)',
+    600: 'hsl(262 83% 58%)',
+    500: 'hsl(262 83% 68%)',
+    400: 'hsl(262 83% 73%)',
+    300: 'hsl(262 83% 78%)',
+    200: 'hsl(262 83% 83%)',
+    100: 'hsl(262 83% 88%)',
+  },
+  coral: {
+    DEFAULT: 'hsl(14 100% 70%)',
+    foreground: 'hsl(224 71% 4%)',
+    hover: 'hsl(14 100% 65%)',
+  },
+  success: {
+    DEFAULT: 'hsl(142 76% 46%)',
+    foreground: 'hsl(224 71% 4%)',
+  },
+  warning: {
+    DEFAULT: 'hsl(25 95% 60%)',
+    foreground: 'hsl(224 71% 4%)',
+  },
+  destructive: {
+    DEFAULT: 'hsl(0 84% 70%)',
+    foreground: 'hsl(224 71% 4%)',
+  },
+  muted: {
+    DEFAULT: 'hsl(215 28% 17%)',
+    foreground: 'hsl(220 13% 69%)',
+  },
+  sidebar: {
+    background: 'hsl(224 71% 8%)',
+    foreground: 'hsl(0 0% 98%)',
+    primary: 'hsl(0 0% 98%)',
+    'primary-foreground': 'hsl(224 71% 8%)',
+    accent: 'hsl(220 13% 69%)',
+    'accent-foreground': 'hsl(224 71% 8%)',
+    border: 'hsl(215 28% 17%)',
+    ring: 'hsl(220 13% 69%)',
+  },
 };
+
+export const space = {
+  1: 4,
+  2: 8,
+  3: 12,
+  4: 16,
+  5: 20,
+  6: 24,
+  8: 32,
+  10: 40,
+  12: 48,
+  16: 64,
+};
+
+export const contentSpacing = {
+  tight: 12,
+  normal: 20,
+  loose: 28,
+  spacious: 40,
+};
+
+export const radii = {
+  lg: 12,
+  md: 10,
+  sm: 8,
+};
+
+export const touch = {
+  sm: 44,
+  md: 52,
+  lg: 60,
+  xl: 68,
+};
+
+export const typography = {
+  sizes: {
+    caption: 12,
+    body: 15,
+    subheading: 14,
+    heading: 16,
+    title: 18,
+    'large-title': 24,
+  },
+  weights: {
+    light: 300,
+    regular: 400,
+    medium: 500,
+    semibold: 600,
+    bold: 700,
+    extrabold: 800,
+  },
+};
+
+export const gradients = {
+  primary: 'linear-gradient(135deg, hsl(17 98% 60%) 0%, hsl(25 95% 55%) 100%)',
+  'plaza-dusk': 'linear-gradient(135deg, hsl(17 98% 60%) 0%, hsl(110 100% 89%) 50%, hsl(35 61% 89%) 100%)',
+  mint: 'linear-gradient(135deg, hsl(110 100% 89%) 0%, hsl(110 100% 95%) 100%)',
+  coupon: 'linear-gradient(135deg, hsl(25 95% 55%) 0%, hsl(25 90% 60%) 100%)',
+  soft: 'linear-gradient(145deg, hsl(110 100% 94%) 0%, hsl(110 100% 89%) 50%, hsl(110 100% 83%) 100%)',
+  card: 'linear-gradient(145deg, hsl(0 0% 100%) 0%, hsl(110 100% 94%) 100%)',
+  elevated: 'linear-gradient(145deg, hsl(0 0% 100%) 0%, hsl(110 100% 92%) 100%)',
+  hero: 'linear-gradient(135deg, hsl(110 100% 89%) 0%, hsl(110 100% 92%) 100%)',
+  rainbow: 'linear-gradient(135deg, hsl(17 98% 60%) 0%, hsl(51 100% 70%) 25%, hsl(110 100% 89%) 75%, hsl(35 61% 89%) 100%)',
+};
+
+export const shadows = {
+  subtle: '0 1px 3px 0 hsl(17 98% 60% / 0.08), 0 1px 2px 0 hsl(17 98% 25% / 0.06)',
+  card: '0 4px 12px -2px hsl(17 98% 60% / 0.12), 0 2px 8px -1px hsl(17 98% 25% / 0.08)',
+  medium: '0 8px 20px -4px hsl(17 98% 60% / 0.15), 0 4px 12px -2px hsl(17 98% 25% / 0.10)',
+  large: '0 16px 32px -8px hsl(17 98% 60% / 0.18), 0 8px 16px -4px hsl(17 98% 25% / 0.12)',
+  floating: '0 20px 40px -12px hsl(17 98% 60% / 0.20)',
+  glow: '0 0 25px hsl(17 98% 60% / 0.4)',
+  inner: 'inset 0 2px 4px 0 hsl(17 98% 25% / 0.08)',
+  burning: '0 6px 20px hsl(17 98% 60% / 0.25)',
+  kournikova: '0 6px 20px hsl(25 95% 55% / 0.25)',
+  snow: '0 6px 20px hsl(110 100% 89% / 0.25)',
+  champagne: '0 6px 20px hsl(35 61% 89% / 0.25)',
+  button: '0 2px 4px hsl(17 80% 56% / 0.08)',
+  'button-hover': '0 4px 12px -2px hsl(17 80% 56% / 0.15), 0 2px 8px -1px hsl(220 36% 9% / 0.10)',
+  'button-active': 'inset 0 2px 6px hsl(220 36% 9% / 0.12)',
+  'button-burning': '0 6px 18px hsl(17 98% 60% / 0.3)',
+  'button-kournikova': '0 6px 18px hsl(25 95% 55% / 0.3)',
+  'button-snow': '0 6px 18px hsl(110 100% 89% / 0.3)',
+  'button-champagne': '0 6px 18px hsl(35 61% 89% / 0.3)',
+  'button-jacaranda': '0 6px 18px hsl(17 80% 56% / 0.3)',
+  'button-mint': '0 6px 18px hsl(25 95% 55% / 0.3)',
+};
+
